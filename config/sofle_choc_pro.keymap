@@ -79,8 +79,9 @@
     behaviors {
         /*
          * ue_quot — hold-tap
-         * Hold = ü (DE_UE), Tap = ' (DE_QUOT)
-         * Replicates Moonlander DUAL_FUNC_0 on the T-column key.
+         * Tap  = ü (DE_UE)      — matches Moonlander DUAL_FUNC_0 tap side
+         * Hold = ' (DE_QUOT)    — matches Moonlander DUAL_FUNC_0 hold side
+         * Usage: &ue_quot DE_QUOT DE_UE   (first arg = hold, second = tap)
          */
 
         ue_quot: ue_quot {
@@ -145,7 +146,7 @@
 
             bindings = <
 &kp ESC    &kp N1    &kp N2    &kp N3                &kp N4        &kp N5                             &kp N6  &kp N7     &kp N8                &kp N9      &kp N0       &kp DE_SS
-&kp TAB    &kp Q     &kp W     &kp E                 &kp R         &kp T   &kp DE_Z                           &kp U      &kp I                 &kp O       &kp P        &ue_quot DE_UE DE_QUOT
+&kp TAB    &kp Q     &kp W     &kp E                 &kp R         &kp T   &kp DE_Z                           &kp U      &kp I                 &kp O       &kp P        &ue_quot DE_QUOT DE_UE
 &kp LSHFT  &kp A     &kp S     &kp D                 &kp F         &kp G   &kp H                              &kp J      &kp K                 &kp L       &kp DE_OE    &kp DE_AE
 &kp LCTRL  &kp DE_Y  &kp X     &kp C                 &kp V         &kp B   &kp C_MUTE  &kp C_PP       &kp N   &kp M      &kp COMMA             &kp DOT     &kp DE_MINS  &kp RSHFT
                      &kp LALT  &kp LS(LA(LC(LGUI)))  &kp LEFT_GUI  &lower_color   &kp SPACE   &kp BACKSPACE  &raise_color   &kp ENTER  &kp LS(LA(LC(LGUI)))  &kp SYSREQ
