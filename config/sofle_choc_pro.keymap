@@ -9,14 +9,15 @@
  */
 
 #include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
-#include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/rgb.h>
 
 /* ---------- German (QWERTZ) keycode aliases ----------
  * Mirrors ZSA Oryx i18n.h — OS keyboard layout must be set to German.
  */
+
 #define DE_Y       Z
 #define DE_Z       Y
 #define DE_SS      MINUS
@@ -55,9 +56,11 @@
 #define DE_PERC    LS(N5)
 
 /* Hyper = LCtrl + LShift + LAlt + LGui (one-key all-mods) */
+
 #define HYPER      LS(LC(LA(LGUI)))
 
 /* Layer indexes */
+
 #define BASE   0
 #define LOWER  1
 #define RAISE  2
@@ -66,6 +69,7 @@
 / {
     conditional_layers {
         compatible = "zmk,conditional-layers";
+
         adjust_layer {
             if-layers = <LOWER RAISE>;
             then-layer = <ADJUST>;
@@ -78,6 +82,7 @@
          * Hold = ü (DE_UE), Tap = ' (DE_QUOT)
          * Replicates Moonlander DUAL_FUNC_0 on the T-column key.
          */
+
         ue_quot: ue_quot {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -92,18 +97,20 @@
 
         default_layer {
             display-name = "Base";
+
             // ----------------------------------------------------------------------------------------------------
             // | ESC  |  1  |  2  |  3  |  4  |  5  |                         |  6  |  7  |  8  |  9  |  0  |  ß  |
             // | TAB  |  Q  |  W  |  E  |  R  |  T  |                         |  Z  |  U  |  I  |  O  |  P  | ü/' |
             // | SHFT |  A  |  S  |  D  |  F  |  G  |                         |  H  |  J  |  K  |  L  |  Ö  |  Ä  |
             // | CTRL |  Y  |  X  |  C  |  V  |  B  | MUTE |         | PLAY   |  N  |  M  |  ,  |  .  |  -  | SHFT |
             //              | HYP | ALT | LWR | C-Z | SPC  |         | ENT    | BSP | RSE | C-Y | HYP |
+
             bindings = <
-&kp ESC    &kp N1     &kp N2    &kp N3    &kp N4    &kp N5                                         &kp N6    &kp N7    &kp N8     &kp N9    &kp N0      &kp DE_SS
-&kp TAB    &kp Q      &kp W     &kp E     &kp R     &kp T                                          &kp DE_Z  &kp U     &kp I      &kp O     &kp P       &ue_quot DE_UE DE_QUOT
-&kp LSHFT  &kp A      &kp S     &kp D     &kp F     &kp G                                          &kp H     &kp J     &kp K      &kp L     &kp DE_OE   &kp DE_AE
-&kp LCTRL  &kp DE_Y   &kp X     &kp C     &kp V     &kp B         &kp C_MUTE        &kp C_PP       &kp N     &kp M     &kp COMMA  &kp DOT   &kp DE_MINS &kp RSHFT
-                      &kp HYPER &kp LALT  &mo LOWER &kp LC(Y)     &kp SPACE         &kp RET        &kp BSPC  &mo RAISE &kp LC(Z)  &kp HYPER
+&kp ESC    &kp N1    &kp N2     &kp N3    &kp N4     &kp N5                           &kp N6    &kp N7     &kp N8     &kp N9     &kp N0       &kp DE_SS
+&kp TAB    &kp Q     &kp W      &kp E     &kp R      &kp T      &kp DE_Z                        &kp U      &kp I      &kp O      &kp P        &ue_quot DE_UE DE_QUOT
+&kp LSHFT  &kp A     &kp S      &kp D     &kp F      &kp G      &kp H                           &kp J      &kp K      &kp L      &kp DE_OE    &kp DE_AE
+&kp LCTRL  &kp DE_Y  &kp X      &kp C     &kp V      &kp B      &kp C_MUTE  &kp C_PP  &kp N     &kp M      &kp COMMA  &kp DOT    &kp DE_MINS  &kp RSHFT
+                     &kp HYPER  &kp LALT  &mo LOWER  &kp LC(Y)  &kp SPACE   &kp RET   &kp BSPC  &mo RAISE  &kp LC(Z)  &kp HYPER
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_PREV C_NEXT>;
@@ -111,18 +118,20 @@
 
         lower_layer {
             display-name = "Lower";
+
             // ----------------------------------------------------------------------------------------------------
             // |  ^  | F1  | F2  | F3  | F4  | F5  |                          | F6  | F7  | F8  | F9  | F10 | F11 |
             // |     |  !  |  "  |  {  |  }  |  \  |                          |  /  |  €  |  $  |  @  |  ?  | F12 |
             // |     | CW  |  #  |  (  |  )  |  `  |                          |  ´  |  <  |  >  |  *  |  =  |     |
             // |     |  '  |  &  |  [  |  ]  |  ~  |     |             |      |  |  |  +  |  -  |  §  |  %  |     |
             //             |     |     |     |     |     |             | DEL  |     |     |     |
+
             bindings = <
-&kp DE_CIRC  &kp F1       &kp F2       &kp F3       &kp F4       &kp F5                                            &kp F6      &kp F7       &kp F8       &kp F9       &kp F10      &kp F11
-&trans       &kp DE_EXLM  &kp DE_DQOT  &kp DE_LCBR  &kp DE_RCBR  &kp DE_BSLS                                       &kp DE_SLSH &kp DE_EURO  &kp DE_DLR   &kp DE_AT    &kp DE_QST   &kp F12
-&trans       &caps_word   &kp DE_HASH  &kp DE_LPRN  &kp DE_RPRN  &kp DE_GRV                                        &kp DE_ACUT &kp DE_LESS  &kp DE_MORE  &kp DE_ASTR  &kp DE_EQL   &trans
-&trans       &kp DE_QUOT  &kp DE_AMPR  &kp DE_LBRC  &kp DE_RBRC  &kp DE_TILD    &trans          &trans             &kp DE_PIPE &kp DE_PLUS  &kp DE_MINS  &kp DE_PARA  &kp DE_PERC  &trans
-                          &trans       &trans       &trans       &trans         &trans          &kp DEL            &trans      &trans       &trans       &trans
+&kp DE_CIRC  &kp F1       &kp F2       &kp F3       &kp F4       &kp F5                            &kp F6       &kp F7       &kp F8       &kp F9       &kp F10      &kp F11
+&trans       &kp DE_EXLM  &kp DE_DQOT  &kp DE_LCBR  &kp DE_RCBR  &kp DE_BSLS  &kp DE_SLSH                       &kp DE_EURO  &kp DE_DLR   &kp DE_AT    &kp DE_QST   &kp F12
+&trans       &caps_word   &kp DE_HASH  &kp DE_LPRN  &kp DE_RPRN  &kp DE_GRV   &kp DE_ACUT                       &kp DE_LESS  &kp DE_MORE  &kp DE_ASTR  &kp DE_EQL   &trans
+&trans       &kp DE_QUOT  &kp DE_AMPR  &kp DE_LBRC  &kp DE_RBRC  &kp DE_TILD  &trans       &trans  &kp DE_PIPE  &kp DE_PLUS  &kp DE_MINS  &kp DE_PARA  &kp DE_PERC  &trans
+                          &trans       &trans       &trans       &trans       &trans       &trans  &trans       &trans       &trans       &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_PREV C_NEXT>;
@@ -130,18 +139,20 @@
 
         raise_layer {
             display-name = "Raise";
+
             // ----------------------------------------------------------------------------------------------------
             // | PSCR | INS |     |     |     | APP |                         |     |     |     |     |     |     |
             // |      |     |     |     |     | PGUP|                         | HOME| PGDN| PGUP| END |     |     |
             // |      | C-A |     |     |     | PGDN|                         | LEFT| DOWN|  UP | RIGHT| V+ |     |
             // |      |     | C-X | C-C | C-V | ULK |     |             |     | PLAY| MUTE| PREV| NEXT| V- |     |
             //              |     |     |     |     |     |             |     |     |     |     |     |
+
             bindings = <
-&kp PSCRN  &kp INS   &trans     &trans     &trans     &kp K_APP                                         &trans     &trans      &trans      &trans      &trans       &trans
-&trans     &trans    &trans     &trans     &trans     &kp PG_UP                                         &kp HOME   &kp PG_DN   &kp PG_UP   &kp END     &trans       &trans
-&trans     &kp LC(A) &trans     &trans     &trans     &kp PG_DN                                         &kp LEFT   &kp DOWN    &kp UP      &kp RIGHT   &kp C_VOL_UP &trans
-&trans     &trans    &kp LC(X)  &kp LC(C)  &kp LC(V)  &studio_unlock   &trans             &trans        &kp C_PP   &kp C_MUTE  &kp C_PREV  &kp C_NEXT  &kp C_VOL_DN &trans
-                     &trans     &trans     &trans     &trans           &trans             &trans        &trans     &trans      &trans      &trans
+&kp PSCRN  &kp INS    &trans     &trans     &trans     &kp K_APP                         &trans    &trans      &trans      &trans      &trans        &trans
+&trans     &trans     &trans     &trans     &trans     &kp PG_UP       &kp HOME                    &kp PG_DN   &kp PG_UP   &kp END     &trans        &trans
+&trans     &kp LC(A)  &trans     &trans     &trans     &kp PG_DN       &kp LEFT                    &kp DOWN    &kp UP      &kp RIGHT   &kp C_VOL_UP  &trans
+&trans     &trans     &kp LC(X)  &kp LC(C)  &kp LC(V)  &studio_unlock  &trans    &trans  &kp C_PP  &kp C_MUTE  &kp C_PREV  &kp C_NEXT  &kp C_VOL_DN  &trans
+                      &trans     &trans     &trans     &trans          &trans    &trans  &trans    &trans      &trans      &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_PREV C_NEXT>;
@@ -149,17 +160,29 @@
 
         adjust_layer {
             display-name = "Adjust";
+
             // Reached by holding LOWER + RAISE simultaneously.
             // BT management, RGB controls, studio unlock, bootloader.
+
             bindings = <
-&bt BT_CLR         &bt BT_SEL 0     &bt BT_SEL 1     &bt BT_SEL 2     &bt BT_SEL 3     &bt BT_SEL 4                                          &none &none &none &none &none       &none
-&ext_power EP_TOG  &rgb_ug RGB_HUD  &rgb_ug RGB_HUI  &rgb_ug RGB_SAD  &rgb_ug RGB_SAI  &rgb_ug RGB_EFF                                       &none &none &none &none &none       &none
-&none              &rgb_ug RGB_BRD  &rgb_ug RGB_BRI  &none            &none            &studio_unlock                                        &none &none &none &none &none       &none
-&none              &none            &none            &none            &none            &none            &rgb_ug RGB_TOG        &none        &none &none &none &none &bootloader &none
-                                    &none            &none            &none            &none            &none                  &none        &none &none &none &none
+&bt BT_CLR         &bt BT_SEL 0     &bt BT_SEL 1     &bt BT_SEL 2     &bt BT_SEL 3     &bt BT_SEL 4                             &none  &none  &none  &none  &none        &none
+&ext_power EP_TOG  &rgb_ug RGB_HUD  &rgb_ug RGB_HUI  &rgb_ug RGB_SAD  &rgb_ug RGB_SAI  &rgb_ug RGB_EFF  &none                          &none  &none  &none  &none        &none
+&none              &rgb_ug RGB_BRD  &rgb_ug RGB_BRI  &none            &none            &studio_unlock   &none                          &none  &none  &none  &none        &none
+&none              &none            &none            &none            &none            &none            &rgb_ug RGB_TOG  &none  &none  &none  &none  &none  &bootloader  &none
+                                    &none            &none            &none            &none            &none            &none  &none  &none  &none  &none
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_PREV C_NEXT>;
+        };
+
+        layer_4 {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+            >;
         };
     };
 };
