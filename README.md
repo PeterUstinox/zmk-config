@@ -6,3 +6,6 @@ The keymap (`config/sofle_choc_pro.keymap`) is a port of the ZSA Moonlander
 **German Coding** Oryx layout to ZMK.
 
 Source layout on Oryx: <https://configure.zsa.io/moonlander/layouts/BRjMx/latest/0>
+
+The QMK source export of that Oryx layout (for side-by-side comparison) lives
+in [`oryx/german-coding/`](oryx/german-coding/).
