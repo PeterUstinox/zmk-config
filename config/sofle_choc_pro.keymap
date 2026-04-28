@@ -138,17 +138,17 @@
             // | TAB  |  Q  |  W  |  E  |  R  |  T  |                         |  Z  |  U  |  I  |  O  |  P  | ü/' |
             // | SHFT |  A  |  S  |  D  |  F  |  G  |                         |  H  |  J  |  K  |  L  |  Ö  |  Ä  |
             // | CTRL |  Y  |  X  |  C  |  V  |  B  | MUTE |         | PLAY   |  N  |  M  |  ,  |  .  |  -  | SHFT |
-            //              | ALT | HYP | U/R | GUI | SPC* |         | BSP*   | ENT | DEL | A/T | PSC |
+            //              |     | HYP | ALT | GUI | SPC* |         | BSP*   | ENT | DEL | RPT | PSC |
             //                                        ^LWR            ^RSE
-            //  U/R = Ctrl+Z (tap) / Ctrl+Y (shift)     SPC*/BSP* = layer-tap: tap=Space/BSPC, hold=Lower/Raise
-            //  A/T = Alt+Tab (tap) / Alt+Shift+Tab (shift)
+            //  SPC*/BSP* = layer-tap: tap=Space/BSPC, hold=Lower/Raise
+            //  RPT = key_repeat (repeat last key)
 
             bindings = <
 &kp ESC    &kp N1    &kp N2    &kp N3     &kp N4        &kp N5                                       &kp N6                &kp N7     &kp N8   &kp N9      &kp N0       &kp DE_SS
 &kp TAB    &kp Q     &kp W     &kp E      &kp R         &kp T         &kp DE_Z                                              &kp U      &kp I    &kp O       &kp P        &ue_quot DE_QUOT DE_UE
 &kp LSHFT  &kp A     &kp S     &kp D      &kp F         &kp G         &kp H                                                 &kp J      &kp K    &kp L       &kp DE_OE    &kp DE_AE
 &kp LCTRL  &kp DE_Y  &kp X     &kp C      &kp V         &kp B         &kp C_MUTE  &kp C_PP           &kp N                  &kp M      &kp COMMA &kp DOT     &kp DE_MINS  &kp RSHFT
-                     &undo_redo  &kp HYPER  &kp LALT    &kp LEFT_GUI  &thumb_lt LOWER SPACE           &thumb_lt RAISE BSPC   &kp ENTER  &kp DEL    &key_repeat  &kp PSCRN
+                     &none       &kp HYPER  &kp LALT    &kp LEFT_GUI  &thumb_lt LOWER SPACE           &thumb_lt RAISE BSPC   &kp ENTER  &kp DEL    &key_repeat  &kp PSCRN
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_PREV C_NEXT>;
@@ -181,18 +181,18 @@
             display-name = "Raise";
 
             // ----------------------------------------------------------------------------------------------------
-            // | PSCR | INS |     |     |     | APP |                         |     |     |     |     |     |     |
-            // |      |     |     |     |     | PGUP|                         | HOME| PGDN| PGUP| END |     |     |
-            // |      | C-A |     |     |     | PGDN|                         | LEFT| DOWN|  UP | RIGHT| V+ |     |
-            // |      |     | C-X | C-C | C-V | ULK |     |             |     | PLAY| MUTE| PREV| NEXT| V- |     |
+            // |      |     |     |     |     | APP |                         |     |     |     |     |     |     |
+            // |      |     |     |     |     |     |                         | HOME| PGDN| PGUP| END |     |     |
+            // |      |     |     |     |     |     |                         | LEFT| DOWN|  UP | RIGHT| V+ |     |
+            // |      |     |     |     |     | ULK |     |             |     |     | MUTE| PREV| NEXT| V- |     |
             //              |     |     |     |     |     |             |     |     |     |     |     |
 
             bindings = <
-&kp PSCRN  &kp INS    &trans     &trans     &trans     &kp K_APP                    &trans    &trans      &trans      &trans      &trans        &trans
-&trans     &trans     &trans     &trans     &trans     &kp PG_UP  &kp HOME                    &kp PG_DN   &kp PG_UP   &kp END     &trans        &trans
-&trans     &kp LC(A)  &trans     &trans     &trans     &kp PG_DN  &kp LEFT                    &kp DOWN    &kp UP      &kp RIGHT   &kp C_VOL_UP  &trans
-&trans     &trans     &kp LC(X)  &kp LC(C)  &kp LC(V)  &none      &kp INS   &trans  &kp C_PP  &kp C_MUTE  &kp C_PREV  &kp C_NEXT  &kp C_VOL_DN  &trans
-                      &trans     &trans     &trans     &trans     &trans    &trans  &trans    &trans      &trans      &trans
+&trans     &trans     &trans     &trans     &trans     &kp K_APP                   &trans    &trans      &trans      &trans      &trans        &trans
+&trans     &trans     &trans     &trans     &trans     &trans     &kp HOME                   &kp PG_DN   &kp PG_UP   &kp END     &trans        &trans
+&trans     &trans     &trans     &trans     &trans     &trans     &kp LEFT                   &kp DOWN    &kp UP      &kp RIGHT   &kp C_VOL_UP  &trans
+&trans     &trans     &trans     &trans     &trans     &none      &trans    &trans  &trans   &kp C_MUTE  &kp C_PREV  &kp C_NEXT  &kp C_VOL_DN  &trans
+                      &trans     &trans     &trans     &trans     &trans    &trans  &trans   &trans      &trans      &trans
             >;
 
             sensor-bindings =
