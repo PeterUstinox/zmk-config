@@ -1,0 +1,59 @@
+name: Build QMK firmware (Oryx German Coding)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'oryx/**'
+      - '.github/workflows/qmk-build.yml'
+  pull_request:
+    paths:
+      - 'oryx/**'
+      - '.github/workflows/qmk-build.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Moonlander ${{ matrix.rev }}
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+    strategy:
+      fail-fast: false
+      matrix:
+        rev: [reva, revb]
+
+    steps:
+      - name: Checkout config repo
+        uses: actions/checkout@v4
+        with:
+          path: zmk-config
+
+      - name: Clone ZSA QMK firmware
+        uses: actions/checkout@v4
+        with:
+          repository: zsa/qmk_firmware
+          ref: firmware25
+          path: qmk_firmware
+          submodules: recursive
+
+      - name: Install Oryx keymap into QMK tree
+        run: |
+          set -eu
+          KEYMAP_DIR=qmk_firmware/keyboards/zsa/moonlander/keymaps/german_coding
+          mkdir -p "$KEYMAP_DIR"
+          cp zmk-config/oryx/german-coding/* "$KEYMAP_DIR/"
+          ls -la "$KEYMAP_DIR"
+
+      - name: Compile firmware (${{ matrix.rev }})
+        working-directory: qmk_firmware
+        run: |
+          qmk compile -j 4 -kb zsa/moonlander/${{ matrix.rev }} -km german_coding
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: moonlander-${{ matrix.rev }}-german-coding
+          path: |
+            qmk_firmware/*.bin
+            qmk_firmware/*.hex
+          if-no-files-found: error
